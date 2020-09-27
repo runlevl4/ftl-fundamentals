@@ -10,6 +10,7 @@ type testCase struct {
 	want        float64
 	name        string
 	errExpected bool
+	errMsg      string
 }
 
 func TestAdd(t *testing.T) {
@@ -75,13 +76,19 @@ func TestDivide(t *testing.T) {
 	t.Parallel()
 
 	testCases := []testCase{
-		{a: 24, b: 3, want: 8, name: "Standard division."},
-		{a: 3, b: 2, want: 1.5, name: "Fractional division."},
+		{a: 24, b: 3, want: 8, name: "Standard division.", errExpected: false},
+		{a: 3, b: 2, want: 1.5, name: "Fractional division.", errExpected: false},
 		{a: 24, b: 0, want: 0, name: "Divide by zero.", errExpected: true},
 	}
 
 	for _, tc := range testCases {
 		t.Log(tc.name)
+		// _, err := calculator.Divide(tc.a, tc.b)
+		// fmt.Printf("err: %v\n", err)
+		// errReceived := err != nil
+		// if tc.errExpected != errReceived {
+		// 	t.Fatalf("Divide(%f/%f): unexpected error status: %v", tc.a, tc.b, errReceived)
+		// }
 		switch tc.errExpected {
 		case true:
 			_, err := calculator.Divide(tc.a, tc.b)
@@ -95,4 +102,36 @@ func TestDivide(t *testing.T) {
 			}
 		}
 	}
+}
+
+func TestSqrt(t *testing.T) {
+	t.Parallel()
+
+	testCases := []testCase{
+		{a: 25, want: 5, name: "Integer root."},
+		{a: 5, want: 2.24, name: "Fractional root."},
+		{a: 4.4, want: 2.10, name: "Fractional input."},
+		{a: -8, name: "Invalid input.", errExpected: true, errMsg: "invalid input"},
+	}
+
+	for _, tc := range testCases {
+		t.Log(tc.name)
+		switch tc.errExpected {
+		case true:
+			_, err := calculator.Sqrt(tc.a)
+			if err.Error() != tc.errMsg {
+				t.Errorf("want %v, got %v", tc.errMsg, err)
+			}
+		default:
+			got, err := calculator.Sqrt(tc.a)
+			if err != nil {
+				t.Errorf("want %f, got %v", tc.want, err)
+			}
+			if got != tc.want {
+				t.Errorf("want %f, got %f", tc.want, got)
+			}
+		}
+
+	}
+
 }

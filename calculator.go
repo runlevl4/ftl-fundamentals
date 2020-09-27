@@ -32,3 +32,12 @@ func Divide(a, b float64) (float64, error) {
 	}
 	return x, nil
 }
+
+// Sqrt takes a number and returns its square root.
+func Sqrt(a float64) (float64, error) {
+	if a < 0 {
+		return 0, errors.New("invalid input")
+	}
+
+	return math.Ceil(math.Sqrt(a)*100) / 100, nil
+}
