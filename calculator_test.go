@@ -14,8 +14,7 @@ type testCase struct {
 }
 
 func TestAdd(t *testing.T) {
-	t.Parallel()
-
+	
 	testCases := []testCase{
 		{a: 2, b: 2, want: 4, name: "Adding equal numbers."},
 		{a: 10, b: 2, want: 12, name: "Adding smaller number to larger."},
@@ -34,8 +33,7 @@ func TestAdd(t *testing.T) {
 }
 
 func TestSubtract(t *testing.T) {
-	t.Parallel()
-
+	
 	testCases := []testCase{
 		{a: 2, b: 2, want: 0, name: "Subtract equal numbers."},
 		{a: 10, b: 2, want: 8, name: "Subtract smaller from larger."},
@@ -54,8 +52,7 @@ func TestSubtract(t *testing.T) {
 }
 
 func TestMultiply(t *testing.T) {
-	t.Parallel()
-
+	
 	testCases := []testCase{
 		{a: 2, b: 2, want: 4, name: "Multiply equal numbers."},
 		{a: 10, b: 2, want: 20, name: "Multiply larger by smaller."},
@@ -70,11 +67,11 @@ func TestMultiply(t *testing.T) {
 			t.Errorf("want %f, got %f", tc.want, got)
 		}
 	}
+
 }
 
 func TestDivide(t *testing.T) {
-	t.Parallel()
-
+	
 	testCases := []testCase{
 		{a: 24, b: 3, want: 8, name: "Standard division.", errExpected: false},
 		{a: 3, b: 2, want: 1.5, name: "Fractional division.", errExpected: false},
@@ -102,11 +99,11 @@ func TestDivide(t *testing.T) {
 			}
 		}
 	}
+
 }
 
 func TestSqrt(t *testing.T) {
-	t.Parallel()
-
+	
 	testCases := []testCase{
 		{a: 25, want: 5, name: "Integer root."},
 		{a: 5, want: 2.24, name: "Fractional root."},
